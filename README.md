@@ -1,1 +1,1 @@
-# NOTE-PAD İLK ÇALIŞMAM
+# Note - pad  yeni çalışmam
