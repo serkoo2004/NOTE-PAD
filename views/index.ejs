@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Not Defteri</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&display=swap">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> 
+</head>
+<body>
+    <div class="container">
+        <% if (locals.user) { %>
+            <h1 class="text-center mt-5 animate__animated animate__fadeInDown">Not Defteri (Hoş geldiniz, <%= user.username %>)</h1>
+            <div class="mt-2"> 
+                <button class="btn btn-outline-secondary mb-3" onclick="window.location.href='/oturum-kapat'">Oturumu Kapat</button> 
+            </div>
+
+            <form id="yeni-not-form" class="mt-4" method="POST" action="/yeni-not">
+                <div class="form-group">
+                  <label for="baslik">Başlık:</label>
+                  <input type="text" class="form-control" id="baslik" name="baslik">
+                </div>
+                <div class="form-group">
+                  <label for="icerik">İçerik:</label>
+                  <textarea class="form-control" id="icerik" name="icerik"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </form>
+
+            <div class="mt-4">
+                <h2 class="animate__animated animate__fadeInUp">Notlar:</h2>
+                <ul id="not-list" class="list-group animate__animated animate__fadeInUp">
+                    <% notlar.forEach(not => { %>
+                        <li class="list-group-item" data-not-id="<%= not._id %>"> 
+                            <h3 class="mb-2"><%= not.baslik %></h3>
+                            <p><%= not.icerik %></p>
+                            <p class="mb-1">Eklenme Zamanı: <%= new Date(not.eklenmeZamani).toLocaleString() %></p>
+                            <% if (user._id.equals(not.sahip) || not.paylasilanlar.includes(user._id)) { %>
+                                <button class="btn btn-warning guncelle-not" data-not-id="<%= not._id %>" style="display:block;">Güncelle</button>
+                                <form action="/not/<%= not._id %>/guncelle" method="POST" id="guncelle-form-<%= not._id %>" style="display:none;"> 
+                                    <input type="hidden" name="notId" value="<%= not._id %>"> 
+                                    <input type="text" class="form-control" id="baslik" name="baslik" value="<%= not.baslik %>"> 
+                                    <textarea class="form-control" id="icerik" name="icerik"><%= not.icerik %></textarea> 
+                                    <button type="submit" class="btn btn-primary">Kaydet</button> 
+                                </form>
+                                <button class="btn btn-info paylas-not" data-not-id="<%= not._id %>">Paylaş</button> 
+                                <a href="/not/<%= not._id %>/sil" class="btn btn-danger">Sil</a>
+                            <% } %>
+
+                            <!-- Modal Başlangıcı -->
+                            <div id="paylasimModal-<%= not._id %>" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false" style="z-index: 1000;"> 
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Notu Paylaş</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Kapat">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="paylas-form-<%= not._id %>" method="POST" action="/not/<%= not._id %>/paylas"> 
+                                                <input type="hidden" name="notId" id="notId" value="<%= not._id %>"> 
+                                                <div class="form-group">
+                                                    <label for="paylasilanKullaniciId">Kullanıcı Seç:</label>
+                                                    <select class="form-control" id="paylasilanKullaniciId" name="paylasilanKullaniciId">
+                                                        <% users.forEach(user => { %>
+                                                            <option value="<%= user._id %>"><%= user.username %></option>
+                                                        <% }); %>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-info" data-not-id="<%= not._id %>">Paylaş</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal Bitişi -->
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% } else { %>
+            <div class="mt-5">
+                <h2 class="text-center">Lütfen oturum açın veya kayıt olun.</h2>
+                <a href="/oturum-ac" class="btn btn-primary">Oturum Aç</a>
+                <a href="/kayit" class="btn btn-secondary">Kayıt Ol</a>
+            </div>
+        <% } %>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="app.js"></script> 
+</body>
+</html>

@@ -1,0 +1,131 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0; 
+    color: #333; 
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1, h2 {
+    font-weight: bold; 
+    color: #ff6600; 
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-block;
+  }
+  
+  .btn-primary {
+    background-color: #007bff; 
+    color: #fff;
+    border: none;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107; 
+    color: #fff;
+    border: none;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545; 
+    color: #fff;
+    border: none;
+  }
+  
+  .list-group-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  .list-group-item h3 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  
+  .animate__animated.animate__fadeInDown {
+    animation-duration: 1s;
+  }
+  
+  .animate__animated.animate__fadeInUp {
+    animation-duration: 1s;
+  }
+
+.modal {
+    /* Modal için özel stiller ekleyin */
+    z-index: 1000;/* Modalın diğer elementlerin üzerine çıkmasını sağlamak için */
+}
+
+.modal-dialog {
+    /* Modal penceresinin boyutunu ayarlamak için */
+    max-width: 500px; /* İstediğiniz genişliği ayarlayın */
+}
+
+.modal-content {
+    /* Modal içeriğinin stilini ayarlamak için */
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    /* Modal başlığının stilini ayarlamak için */
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.modal-body {
+    /* Modal içeriğinin stilini ayarlamak için */
+    padding: 20px;
+}
+
+.modal-footer {
+    /* Modal alt kısmının stilini ayarlamak için */
+    padding: 15px;
+    border-top: 1px solid #ccc;
+    text-align: right;
+}
+
+.modal-title {
+    /* Modal başlığının stilini ayarlamak için */
+    font-weight: bold;
+    color: #333;
+}
+
+.close {
+    /* Kapat düğmesinin stilini ayarlamak için */
+    font-size: 1.5rem;
+    color: #333;
+    opacity: 0.5;
+}
+
+.close:hover {
+    opacity: 1;
+}
